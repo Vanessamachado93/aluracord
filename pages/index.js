@@ -1,51 +1,22 @@
 import {Box, Button, Text, TextField, Image} from '@skynexui/components';
-import appConfig from './config.json'
-
-function GlobalStyle() {
-    return ( 
-        <style global jsx > {`
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        list-style: none;
-      }
-      body {
-        font-family: 'Open Sans', sans-serif;
-      }
-      /* App fit Height */ 
-      html, body, #__next {
-        min-height: 100vh;
-        display: flex;
-        flex: 1;
-      }
-      #__next {
-        flex: 1;
-      }
-      #__next > * {
-        flex: 1;
-      }
-      /* ./App fit Height */ 
-    `
-        } </style>
-    );
-}
+import React from 'react';
+import { useRouter } from 'next/router';
+import appConfig from './config.json';
 
 
 function Titulo(props){
-    console.log(props);
-    const tag = props.tag || 'h1';
+    const Tag = props.tag || 'h1';
     return (
-      <div>
-            <tag>{props.children}</tag>
+      <>
+        <Tag>{props.children}</Tag>
          <style jsx > {`
-            h1 {
+            ${Tag} {
                color: ${appConfig.theme.colors.neutrals['000']};
                font-size: 36px;
                font-weight: 800;
            }
            `}</style> 
-        </div>  
+        </>  
     
     );
 }
@@ -63,10 +34,11 @@ function Titulo(props){
 
 export default function PaginaInicial() {
   const username = 'Vanessamachado93';
+  const roteamento = useRouter();
 
   return (
     <>
-      <GlobalStyle />
+      
       <Box
         styleSheet={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -93,27 +65,48 @@ export default function PaginaInicial() {
           {/* Formulário */}
           <Box
             as="form"
+            onSubmit={function (infosDoEvento) {
+              infosDoEvento.preventDefault();
+              console.log('Alguém clicou no form');
+              roteamento.push('/chat');
+              // window.location.href = '/chat';
+            }}
             styleSheet={{
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
               width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
             }}
           >
-            <Titulo tag="h2"><strong>Boas vindas de volta!</strong></Titulo>
+            <Titulo tag="h2"><strong>CHEGA AÍ, VAMOS TROCAR UMA IDEIA?</strong></Titulo>
             <Text variant="body3" styleSheet={{ marginBottom: '46px', color: appConfig.theme.colors.neutrals[100] }}>
               {appConfig.name}
             </Text>
 
+          
+
+            {
             <TextField
-              fullWidth
-              textFieldColors={{
-                neutral: {
-                  textColor: appConfig.theme.colors.neutrals[100],
-                  mainColor: appConfig.theme.colors.neutrals[900],
-                  mainColorHighlight: appConfig.theme.colors.primary[500],
-                  backgroundColor: appConfig.theme.colors.neutrals[800],
-                },
-              }}
-            />
+              value = {username}
+              onChange = {function (event) {
+                  console.log('usuario digitou', event.target.value);
+                  // Onde ta o valor?
+                  const valor = event.target.value;
+                  //username = valor;
+                  //Trocar o valor da variável 
+                  //através dp react e avise quem
+                   setUsername(valor);
+
+               }}
+                fullWidth
+                textFieldColors = {{
+                  neutral: {
+                    textColor: appConfig.theme.colors.neutrals[100],
+                    mainColor: appConfig.theme.colors.neutrals[900],
+                    mainColorHighlight: appConfig.theme.colors.primary[500],
+                    backgroundColor: appConfig.theme.colors.neutrals[800],
+                  },
+                }}
+              />}
+
             <Button
               type='submit'
               label='Entrar'
