@@ -3,7 +3,7 @@ import React from "react";
 import appConfig from '../config.json';
 import { useRouter } from "next/router";
 import { createClient } from "@supabase/supabase-js";
-import { ButtonSendSticker } from "../src/components/ButtonSendSticker";
+import  ButtonSendSticker from "../src/components/ButtonSendSticker";
 
 // Como fazer AJAX: https://medium.com/@omariosouto/entendendo-como-fazer-ajax-com-a-fetchapi-977ff20da3c6
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzI4NjQ3NywiZXhwIjoxOTU4ODYyNDc3fQ.noQ8xAIxc3BK0yGFJMpzx6HdZ2aBu2zANNIEQ-ifhrs";
